@@ -1,10 +1,11 @@
 #!/bin/bash
 
 yum remove -y java
-yum install -y java-1.8.0-openjdk
-wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins-2.107.1-1.1.noarch.rpm
-rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+yum install -y java-1.8.0-openjdk wget
+wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat/jenkins.repo
+rpm --import https://jenkins-ci.org/redhat/jenkins-ci.org.key
 yum install -y jenkins
+service jenkins start
 chkconfig jenkins on
 
 echo "Install Telegraf"
@@ -17,8 +18,4 @@ service telegraf start
 
 echo "Install git"
 yum install -y git
-
-
-service jenkins start
-
 

@@ -1,0 +1,30 @@
+{
+  "variables": {
+    "service_account_json": "serviceacc.json",
+    "project_id": "nimble-willow-223217"
+  },
+
+  "builders": [
+    {
+      "type": "googlecompute",
+      "project_id": "{{user `project_id`}}",
+      "machine_type": "n1-standard-1",
+      "region": "us-west1",
+      "zone": "us-west1-b",
+      "source_image_family": "centos-7",
+      "image_name": "jenkins-master",
+      "ssh_username": "jayabalanbala",
+      "disk_size": 10,
+      "image_description" : "GCloud Linux Image with Jenkins Server",
+      "account_file": "{{ user `service_account_json`}}"
+    }
+  ],
+  "provisioners": [
+    {
+    "type": "shell",
+    "script": "installjenkins.sh",
+    "execute_command" : "sudo -E -S sh '{{ .Path }}'"
+    }
+  ]
+}
+
